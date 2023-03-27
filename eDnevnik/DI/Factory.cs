@@ -3,11 +3,12 @@ using eDnevnik.Repository.StudentRepository;
 using eDnevnik.Repository.SubjectRepository;
 using eDnevnik.Repository.SubjectRepository.SubjectRepository;
 using eDnevnik.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using eDnevnik.Services.eDnevnikServices;
+using eDnevnik.Services.GradeServices;
+using eDnevnik.Services.StudentServices;
+using eDnevnik.Services.SubjectServices;
+using eDnevnik.Services.ValidatorService;
+using System.Net.Http.Headers;
 
 namespace eDnevnik.DI
 {
@@ -28,7 +29,32 @@ namespace eDnevnik.DI
             return new StudentRepository();
         }
 
-        
-        
+        public static IValidator Validator()
+        {
+            return new Validator(StudentRepository().ReturnStudents(),SubjectRepository().ReturnSubjects());
+        }
+
+        public static IeDnevnikServices EDnevnikServices()
+        {
+            return new eDnevnikServices(StudentRepository().ReturnStudents(),GradeRepository().ReturnGrades(),SubjectRepository().ReturnSubjects(),Validator(),StudentService(),SubjectService(),GradeService());
+        }
+
+        public static IStudentService StudentService()
+        {
+            return new StudentService();
+        }
+
+        public static ISubjectService SubjectService()
+        {
+            return new SubjectService();
+        }
+
+        public static IGradeService GradeService()
+        {
+            return new GradeService();
+        }
+
+
+
     }
 }

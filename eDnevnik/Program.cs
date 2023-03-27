@@ -4,6 +4,7 @@ using eDnevnik.Repository.GradeRepository;
 using eDnevnik.Repository.StudentRepository;
 using eDnevnik.Repository.SubjectRepository.SubjectRepository;
 using eDnevnik.Services;
+using eDnevnik.Services.eDnevnikServices;
 
 class Program
 {
@@ -11,16 +12,8 @@ class Program
 
     public static void Main(string[] args)
     {
-        IStudentRepository studentRepository = Factory.StudentRepository();
-        List<Student> students = studentRepository.ReturnStudents();
-
-        ISubjectRepository subjectRepo = Factory.SubjectRepository();
-        List<Subject> subjects = subjectRepo.ReturnSubjects();
-
-        IGradeRepository gradeRepository = Factory.GradeRepository();
-        List<Grade> grades = gradeRepository.ReturnGrades();
-
-        eDnevnikServices services = new eDnevnikServices(students,grades,subjects);
+        
+        IeDnevnikServices services = Factory.EDnevnikServices();
 
 
         bool isRunning = true;
